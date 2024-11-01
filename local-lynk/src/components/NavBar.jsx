@@ -6,23 +6,23 @@ function NavigationBar() {
     <Navbar>
       <Navbar.Brand as={Link} to="/home">
         Home
-      </Navbar.Brand>{" "}
+      </Navbar.Brand>
       <br />
       <Navbar.Brand as={Link} to="/login">
         Login
-      </Navbar.Brand>{" "}
+      </Navbar.Brand>
       <br />
       <Navbar.Brand as={Link} to="/settings">
         Settings
-      </Navbar.Brand>{" "}
+      </Navbar.Brand>
       <br />
       <Navbar.Brand as={Link} to="/profile">
         Profile
-      </Navbar.Brand>{" "}
+      </Navbar.Brand>
       <br />
       <Navbar.Brand as={Link} to="/about-local-lynk">
         About
-      </Navbar.Brand>{" "}
+      </Navbar.Brand>
       <br />
     </Navbar>
   );
