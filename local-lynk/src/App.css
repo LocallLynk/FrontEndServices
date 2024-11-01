@@ -40,3 +40,21 @@
 .read-the-docs {
   color: #888;
 }
+
+.login-button {
+  padding: 15px 30px;
+  margin: 10px;
+  cursor: pointer;
+}
+
+.register-button {
+  padding: 15px 30px;
+  margin: 10px;
+  cursor: pointer;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}

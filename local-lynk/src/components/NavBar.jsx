@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
-import { Navbar } from "react-bootstrap";
+import { Navbar, Nav } from "react-bootstrap";
 
 function NavigationBar() {
   return (
-    <Navbar>
+    <Navbar className="navbar" expand="lg">
       <Navbar.Brand as={Link} to="/home">
         Home
       </Navbar.Brand>
