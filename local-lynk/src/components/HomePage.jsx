@@ -17,6 +17,7 @@ const HomePage = () => {
       <button className="register-button" onClick={handleRegister}>
         Register
       </button>
+      <footer className="footer">© 2024 LocalLynk</footer>
     </div>
   );
 };
