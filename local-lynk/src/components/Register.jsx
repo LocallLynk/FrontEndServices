@@ -33,7 +33,7 @@ function RegisterPage() {
 
     return (
         <div className="form-container">
-            <h2>User Registration</h2>
+            <h1>User Registration</h1>
             <form className="registration-form" onSubmit={handleSubmit}>
                 <div className="form-group">
                     <label htmlFor="username">Username:</label>

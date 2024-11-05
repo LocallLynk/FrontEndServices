@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import './home.css'
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -13,7 +14,7 @@ const HomePage = () => {
   };
 
   return (
-    <div>
+    <div className='homepage'>
       <h1>LocalLynk</h1>
       <h2>Community builds community</h2>
       <button className="login-button" onClick={handleLogin}>

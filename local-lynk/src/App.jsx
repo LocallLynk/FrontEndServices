@@ -6,13 +6,10 @@ import "./App.css";
 
 function App() {
   return (
-    <Router>
-      <NavigationBar />
-      <Routes>
-        <Route path="/home" element={<HomePage />} />
-      </Routes>
-    </Router>
+    <HomePage />
   );
 }
+
+
 
 export default App;
