@@ -4,7 +4,7 @@ import { Navbar, Nav } from "react-bootstrap";
 function NavigationBar() {
   return (
     <Navbar className="navbar" expand="lg">
-      <Navbar.Brand as={Link} to="/home">
+      <Navbar.Brand as={Link} to="/">
         Home
       </Navbar.Brand>
       <br />
