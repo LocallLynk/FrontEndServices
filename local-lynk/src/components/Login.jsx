@@ -16,7 +16,7 @@ function Login() {
             setUser(userSession);
 
             if (userSession.name.toLowerCase() === 'admin') { 
-                navigate('/add-product');
+                navigate('/feed');
             } else {
                 navigate('/home');
             }
@@ -42,7 +42,7 @@ function Login() {
             setUser(authenticatedUser);
 
             if (username.toLowerCase() === 'admin') {
-                navigate('/home');
+                navigate('/feed');
         } else {
             alert("Invalid username or password!");
         }
