@@ -9,7 +9,6 @@ function AboutPage() {
         contractors in their area, we understand community is the forefront to
         the building blocks of the world.
       </p>
-      <p>Under construction</p>
     </div>
   );
 }
