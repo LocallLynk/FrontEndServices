@@ -1,10 +1,12 @@
 const HomePage = () => {
-  const handleLogin = () => {
-    console.log("Login button clicked");
+  const navigate = useNavigate();
+  
+   const handleLogin = () => {
+    navigate('/login');
   };
 
-  const handleRegister = () => {
-    console.log("Register button clicked");
+   const handleRegister = () => {
+    navigate('/register');
   };
 
   return (
