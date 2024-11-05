@@ -1,30 +1,42 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import './home.css'
+import './css/home.css';
 
 const HomePage = () => {
   const navigate = useNavigate();
   
-   const handleLogin = () => {
+  const handleLogin = () => {
     navigate('/login');
   };
 
-   const handleRegister = () => {
+  const handleRegister = () => {
     navigate('/register');
   };
 
   return (
-    <div className='homepage'>
-      <h1>LocalLynk</h1>
-      <h2>Community builds community</h2>
-      <button className="login-button" onClick={handleLogin}>
-        Login
-      </button>
-      <button className="register-button" onClick={handleRegister}>
-        Register
-      </button>
-      <footer className="footer">© 2024 LocalLynk</footer>
-    </div>
+    <>
+      <div>
+        <img
+          className="logo-img"
+          src="/imgs/LocalLynk with name.png"
+          alt="Logo for LocalLynk"
+        />
+      </div>
+      <div className="homepage">
+        <h1>LocalLynk</h1>
+        <h2>Community builds community</h2>
+        <button className="login-button" onClick={handleLogin}>
+          Login
+        </button>
+        <br />
+        <button className="register-button" onClick={handleRegister}>
+          Register
+        </button>
+        <footer className="footer">
+          <p>2024 LocalLynk</p>
+        </footer>
+      </div>
+    </>
   );
 };
 

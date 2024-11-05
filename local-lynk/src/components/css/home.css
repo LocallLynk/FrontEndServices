@@ -45,6 +45,7 @@
     padding: 15px 30px;
     margin: 10px;
     cursor: pointer;
+    background-color: white;
   }
   
   .register-button {
@@ -52,6 +53,7 @@
     margin: 10px;
     cursor: pointer;
     color: blue;
+    background-color: white;
   }
   
   
@@ -61,5 +63,12 @@
   }
 
   .homepage {
-    align-items: right;
+    float: right;
   }
+
+  .logo-img {
+    float: left;
+    height: 100;
+  }
+
+  bod

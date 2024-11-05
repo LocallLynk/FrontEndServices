@@ -34,7 +34,7 @@ function FeedPage() {
   return (
     <div>
       <h1>Community Posts</h1>
-      <div className="posts-container">
+      <div className="sample-posts">
         {posts.map((post, index) => {
           const user = users[index];
           return (

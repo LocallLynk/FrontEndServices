@@ -3,27 +3,14 @@ import { Navbar, Nav } from "react-bootstrap";
 
 function NavigationBar() {
   return (
-    <Navbar className="navbar" expand="lg">
-      <Navbar.Brand as={Link} to="/">
-        Home
-      </Navbar.Brand>
-      <br />
-      <Navbar.Brand as={Link} to="/login">
-        Login
-      </Navbar.Brand>
-      <br />
-      <Navbar.Brand as={Link} to="/settings">
-        Settings
-      </Navbar.Brand>
-      <br />
-      <Navbar.Brand as={Link} to="/profile">
-        Profile
-      </Navbar.Brand>
-      <br />
-      <Navbar.Brand as={Link} to="/about-local-lynk">
-        About
-      </Navbar.Brand>
-      <br />
+    <Navbar className="navbar">
+      <Navbar.Brand as={Link} to="/">LocalLynk</Navbar.Brand>
+      <Nav className="ml-auto">
+        <Nav.Link as={Link} to="/">Home</Nav.Link>
+        <Nav.Link as={Link} to="/login">Login</Nav.Link>
+        <Nav.Link as={Link} to="/settings">Settings</Nav.Link>
+        <Nav.Link as={Link} to="/profile">Profile</Nav.Link>
+      </Nav>
     </Navbar>
   );
 }
