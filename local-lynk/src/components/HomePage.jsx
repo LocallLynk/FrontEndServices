@@ -15,15 +15,14 @@ const HomePage = () => {
   };
 
   return (
-    <>
-      <div>
-        <img
-          className="logo-img"
-          src="/imgs/LocalLynk with name.png"
-          alt="Logo for LocalLynk"
-        />
-      </div>
-      <div className="homepage">
+      <div className='main-content'>
+        <div className='logo-img-container'>
+      <img
+        className="logo-img"
+        src="/imgs/LocalLynk with name.png"
+        alt="Logo for LocalLynk" />
+    </div>
+    <div className="homepage">
         <h1>LocalLynk</h1>
         <h2>Ready to get started?</h2>
         <button className="login-button" onClick={handleLogin}>
@@ -33,13 +32,8 @@ const HomePage = () => {
         <button className="register-button" onClick={handleRegister}>
           Register
         </button>
-        </div>
-        <div>
-        <footer className="footer">
-          <p>2024 LocalLynk</p>
-        </footer>
       </div>
-    </>
+      </div>
   );
 };
 

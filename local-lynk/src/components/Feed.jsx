@@ -43,7 +43,7 @@ function FeedPage() {
   }
 
   return (
-    <div>
+    <div id="root">
       <h1>Community Posts</h1>
       <div className="sample-posts">
         {posts.map((post, index) => {
