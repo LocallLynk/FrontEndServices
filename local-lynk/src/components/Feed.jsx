@@ -1,30 +1,41 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import person from "../data/Randommuser.json";
+import posts from "../data/JsonPlaceHolder.json"
 
 function FeedPage() {
   const [posts, setPosts] = useState([]);
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
+  const getPostsForReal = async() => {
     axios.get("https://jsonplaceholder.typicode.com/posts")
-      .then(response => {
-        setPosts(response.data);
-      })
-      .catch(error => {
-        console.error("Error fetching posts:", error);
-      });
+    .then(response => {
+      setPosts(response.data);
+    })
+    .catch(error => {
+      console.error("Error fetching posts:", error);
+    });
+  }
 
-    axios.get("https://randomuser.me/api/?results=10")
-      .then(response => {
-        setUsers(response.data.results);
-      })
-      .catch(error => {
-        console.error("Error fetching users:", error);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+  const getPosts = () => {
+      setPosts(posts)
+  }
+
+  useEffect(() => {
+      getPosts()
+      setUsers(person)
+
+  //  axios.get("https://randomuser.me/api/?results=10")
+  //     .then(response => {
+  //       setUsers(response.data.results);
+  //     })
+  //     .catch(error => {
+  //       console.error("Error fetching users:", error);
+  //     })
+  //     .finally(() => {
+  //       setLoading(false);
+  //     });
   }, []);
 
   if (loading) {
