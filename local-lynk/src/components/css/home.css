@@ -76,18 +76,27 @@ html, body {
   border-radius: 10px;
 }
 
+h1{
+  color: black;
+  margin-top: 50px;
+  text-align: center;
+}
 
-footer {
+.form{
+  text-align: center;
+  margin-top: 25px;
+}
+
+/* .footer {
   background-color: darkslateblue;
-  color: white;
+  color: pink;
   font-size: 8pt;
   padding: 10px 20px;
   text-align: center;
   width: 100%;
   position: relative;
-  margin-top: auto; 
   font-family: 'Times New Roman', Times, serif;
-}
+} */
 
 
 .login-button, .register-button {
@@ -130,8 +139,4 @@ footer {
   }
 }
 
-h1 {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  font-style: oblique;
-  font-size: 54px;
-}
+

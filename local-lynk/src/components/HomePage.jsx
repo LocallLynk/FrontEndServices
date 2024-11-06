@@ -1,6 +1,5 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Link } from 'react-router-dom';
 import './css/home.css';
 
 const HomePage = () => {
@@ -33,6 +32,9 @@ const HomePage = () => {
           Register
         </button>
       </div>
+      {/* <div>
+      <footer className='footer'>2024 Local Lynk</footer>
+      </div> */}
       </div>
   );
 };

@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import { useNavigate, NavLink } from 'react-router-dom';
 import { Container, Row, Col, Form, Button, Alert } from 'react-bootstrap';
 import UserContext from './UserContext';  
+import './css/login.css';
 
 function LoginPage() {
     const [username, setUsername] = useState('');
@@ -56,7 +57,7 @@ function LoginPage() {
     };
 
     return (
-        <Container className="vh-100">
+        <Container>
             <h1>Login</h1>
             <Row className="form">
                 <Col md={5}>
