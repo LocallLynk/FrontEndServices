@@ -57,11 +57,12 @@ function LoginPage() {
 
     return (
         <Container className="vh-100">
-            <Row className="justify-content-center align-items-center h-100">
+            <h1>Login</h1>
+            <Row className="form">
                 <Col md={5}>
                     <Form onSubmit={handleLogin}>
-                        <Form.Group controlId="usernameInput" className="mb-3">
-                            <Form.Label>Username</Form.Label>
+                        <Form.Group controlId="usernameInput">
+                            <Form.Label>Username: </Form.Label>
                             <Form.Control
                                 type="text"
                                 placeholder="Enter username"
@@ -70,9 +71,10 @@ function LoginPage() {
                                 required
                             />
                         </Form.Group>
+                        <br></br>
 
-                        <Form.Group controlId="passwordInput" className="mb-3">
-                            <Form.Label>Password</Form.Label>
+                        <Form.Group controlId="passwordInput">
+                            <Form.Label>Password: </Form.Label>
                             <Form.Control
                                 type="password"
                                 placeholder="Enter password"
@@ -83,22 +85,25 @@ function LoginPage() {
                         </Form.Group>
 
                         {errorMessage && (
-                            <Alert variant="danger" className="mb-3">
+                            <Alert variant="danger">
                                 {errorMessage}
                             </Alert>
                         )}
+                        <br></br>
 
-                        <Button variant="primary" type="submit" className="w-100">
+                        <Button className="login-button" type="submit">
                             Login
                         </Button>
 
-                        <div className="mt-3">
-                            <NavLink to="/register">Register</NavLink>
-                        </div>
+                        <div>
+                            <p>Don't have an account yet?<br></br>
+                            <NavLink to="/register">Register</NavLink> </p>
+                        </div> 
                     </Form>
                 </Col>
             </Row>
         </Container>
+        
     );
 }
 

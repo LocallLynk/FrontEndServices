@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import person from "../data/Randommuser.json";
-import posts from "../data/JsonPlaceHolder.json"
+import posts from "../data/JsonPlaceHolder.json";
 
 function FeedPage() {
   const [posts, setPosts] = useState([]);

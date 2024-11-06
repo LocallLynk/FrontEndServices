@@ -46,6 +46,7 @@ function RegisterPage() {
                         required
                     />
                 </div>
+                <br></br>
 
                 <div className="form-group">
                     <label htmlFor="email">Email:</label>
@@ -58,6 +59,7 @@ function RegisterPage() {
                         required
                     />
                 </div>
+                <br></br>
 
                 <div className="form-group">
                     <label htmlFor="password">Password:</label>
@@ -70,6 +72,7 @@ function RegisterPage() {
                         required
                     />
                 </div>
+                <br></br>
 
                 <div className="form-group">
                     <label htmlFor="confirmPassword">Confirm Password:</label>
@@ -82,12 +85,14 @@ function RegisterPage() {
                         required
                     />
                 </div>
+                <br></br>
 
                 {errorMessage && <p className="error-message">{errorMessage}</p>}
                 {successMessage && <p className="success-message">{successMessage}</p>}
 
-                <button type="submit" className="submit-button">Register</button>
+                <button type="submit" className="register-button">Register</button>
             </form>
+
         </div>
     );
 }
