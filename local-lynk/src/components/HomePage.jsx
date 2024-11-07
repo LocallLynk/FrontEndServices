@@ -22,9 +22,14 @@ const HomePage = () => {
         alt="Logo for LocalLynk" />
     </div>
     <div className="homepage">
-        <h1>LocalLynk</h1>
-        <br></br>
-        <h2>Ready to get started?</h2>
+    <h1 >Welcome to LocalLynk!</h1>
+    <br></br>
+      <p>
+        LocalLynk is a project created by four Coding Temple alumni for their
+        final project. Designed with the purpose to connect others with
+        contractors in their area, we understand community is the forefront to
+        the building blocks of the world.
+      </p>
         <button className="login-button" onClick={handleLogin}>
           Login
         </button>

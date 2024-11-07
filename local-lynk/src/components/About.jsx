@@ -1,7 +1,6 @@
 function AboutPage() {
   return (
     <div>
-      <h1>About LocalLynk</h1>
       <h3>Welcome to LocalLynk!</h3>
       <p>
         LocalLynk is a project created by four Coding Temple alumni for their
