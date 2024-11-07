@@ -115,4 +115,11 @@
     }
   }
 
-  
+  .registration-form{
+    text-align: center;
+    padding: 10px;
+  }
+
+.form-group-spacing{
+    margin-top: 10px;
+  }
