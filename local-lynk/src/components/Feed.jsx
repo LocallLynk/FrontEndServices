@@ -6,6 +6,7 @@ function FeedPage() {
   const [posts, setPosts] = useState([]);
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [visiblePosts, setVisiblePosts] = useState(5);
 
   useEffect(() => {
     axios.get("https://jsonplaceholder.typicode.com/posts")
@@ -28,6 +29,11 @@ function FeedPage() {
       });
   }, []);
 
+  const handleLoadMore = () => {
+    setVisiblePosts(visiblePosts + 5);
+  }
+  
+
   if (loading) {
     return (
       <div className="d-flex justify-content-center align-items-center">
@@ -40,7 +46,7 @@ function FeedPage() {
     <div className="container mt-4">
       <h1 className="text-center">Community Posts</h1>
       <Row className="mt-3 text-center">
-        {posts.slice(0,5).map((post, index) => {
+        {posts.slice(0, visiblePosts).map((post, index) => {
           const user = users[index];
           return (
             <Col key={post.id} md={4} className="mb-4">
@@ -67,6 +73,9 @@ function FeedPage() {
           );
         })}
       </Row>
+      {visiblePosts < posts.length && (
+        <Button onClick={handleLoadMore} className="mt-4" variant="secondary">Load More</Button>
+      )}
     </div>
   );
 }
