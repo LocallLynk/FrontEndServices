@@ -60,7 +60,7 @@ function LoginPage() {
         <Container>
             <h1 className="title-name">Login</h1>
             <Row className="form">
-                <Col md={5}>
+                <Col>
                     <Form onSubmit={handleLogin}>
                         <Form.Group controlId="usernameInput">
                             <Form.Label>Username: </Form.Label>
