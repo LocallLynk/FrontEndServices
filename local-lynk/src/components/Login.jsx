@@ -58,7 +58,7 @@ function LoginPage() {
 
     return (
         <Container>
-            <h1>Login</h1>
+            <h1 className="title-name">Login</h1>
             <Row className="form">
                 <Col md={5}>
                     <Form onSubmit={handleLogin}>

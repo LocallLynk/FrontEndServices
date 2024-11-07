@@ -9,6 +9,9 @@ html, body {
   height: 100%;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background-color: #eaf5f4;
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: 1fr auto;
 }
 
 #root {
@@ -78,25 +81,25 @@ html, body {
 
 h1{
   color: black;
-  margin-top: 50px;
-  text-align: center;
+  margin-top: 56px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-style: oblique;
+  font-weight: 500;
+  font-size: 74px;
 }
 
-.form{
-  text-align: center;
-  margin-top: 25px;
-}
 
-/* .footer {
+ /* .footer {
+  margin-top: auto;
   background-color: darkslateblue;
   color: pink;
   font-size: 8pt;
   padding: 10px 20px;
   text-align: center;
   width: 100%;
-  position: relative;
   font-family: 'Times New Roman', Times, serif;
-} */
+  position: relative;
+}  */
 
 
 .login-button, .register-button {
@@ -113,8 +116,14 @@ h1{
 
 .login-button:hover, .register-button:hover {
   background-color: rgb(214, 212, 212);
+  border: 1px solid #02403d;
+  transition: background-color 0.6s ease-in-out;
 }
 
+/* .login-button:active, .register-button:active {
+  width: 100px;
+  height: 50px;
+}  */
 
 @media (max-width: 768px) {
   .main-content {

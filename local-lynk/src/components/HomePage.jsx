@@ -15,7 +15,7 @@ const HomePage = () => {
 
   return (
       <div className='main-content'>
-        <div className='logo-img-container'>
+        <div>
       <img
         className="logo-img"
         src="/imgs/LocalLynk with name.png"
@@ -23,6 +23,7 @@ const HomePage = () => {
     </div>
     <div className="homepage">
         <h1>LocalLynk</h1>
+        <br></br>
         <h2>Ready to get started?</h2>
         <button className="login-button" onClick={handleLogin}>
           Login
@@ -32,8 +33,8 @@ const HomePage = () => {
           Register
         </button>
       </div>
-      {/* <div>
-      <footer className='footer'>2024 Local Lynk</footer>
+      {/* <div className='footer'>
+      <footer>2024 Local Lynk</footer>
       </div> */}
       </div>
   );
