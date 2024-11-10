@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Card, Button, Row, Col, Spinner, Form } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 function FeedPage() {
   const [posts, setPosts] = useState([]);
@@ -66,7 +67,7 @@ function FeedPage() {
           return (
             <Col key={post.id} md={4} className="mb-4">
               <div>
-                <Card style={{ boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)", backgroundColor: "white" }}>
+                <Card style={{ boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)" }}>
                   <Card.Body>
                     <div className="d-flex align-items-center mb-3">
                       <img
@@ -75,7 +76,9 @@ function FeedPage() {
                         width="40"
                         height="40"
                       />
+                      <Link to={`/user/${user.login.uuid}`}>
                       <strong className="ml-2">{user?.name?.first} {user?.name?.last}</strong>
+                      </Link>
                     </div>
 
                     <Card.Title className="title">{post.title}</Card.Title>
