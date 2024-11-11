@@ -59,7 +59,7 @@ function FeedPage() {
   }
 
   return (
-    <div className="container mt-4">
+    <div style={{ backgroundColor: '#eaf5f4', minHeight: '100vh', padding: '20px', marginTop: '4px'}}>
       <h1 className="text-center">Community Posts</h1>
       <Row className="mt-3">
         {posts.slice(0, visiblePosts).map((post, index) => {
@@ -67,7 +67,7 @@ function FeedPage() {
           return (
             <Col key={post.id} md={4} className="mb-4">
               <div>
-                <Card style={{ boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)" }}>
+                <Card style={{ boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.2)" }}>
                   <Card.Body>
                     <div className="d-flex align-items-center mb-3">
                       <img
@@ -102,7 +102,7 @@ function FeedPage() {
                       <Form.Group controlId="commentInput" className="mt-3">
                         <Form.Control type="text" placeholder="Add a comment" />
                       </Form.Group>
-                      <Button variant="primary" type="submit" className="mt-2">
+                      <Button variant="primary" type="submit" style={{ backgroundColor: '#016b66' }}>
                         Comment
                       </Button>
                     </Form>
@@ -125,7 +125,7 @@ function FeedPage() {
         })}
       </Row>
       {visiblePosts < posts.length && (
-        <Button onClick={handleLoadMore} className="mt-4" variant="secondary">Load More</Button>
+        <Button onClick={handleLoadMore} className="mt-4" style={{ backgroundColor: '#016b66' }}>Load More</Button>
       )}
     </div>
   );
