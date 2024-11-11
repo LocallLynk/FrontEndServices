@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Card, Button, Row, Col, Spinner, Form } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import NewPost from "./NewPost";
 
 function FeedPage() {
   const [posts, setPosts] = useState([]);
@@ -12,8 +13,10 @@ function FeedPage() {
   useEffect(() => {
     axios.get("https://jsonplaceholder.typicode.com/posts")
       .then(response => {
-        // Initialize posts with comments and liked properties
-        setPosts(response.data.map(post => ({ ...post, liked: false, comments: [], commentVisible: false })));
+        setPosts(response.data.map(post => ({ ...post, 
+          liked: false, 
+          comments: [], 
+          commentVisible: false })));
       })
       .catch(error => {
         console.error("Error fetching posts:", error);
@@ -34,6 +37,10 @@ function FeedPage() {
   const handleLoadMore = () => {
     setVisiblePosts(visiblePosts + 6);
   };
+
+  const handleAddPost = (newPost) => {
+    setPosts((prevPosts) => [newPost, ...prevPosts]);
+  }
 
   const handleToggleLikeButton = (postId) => {
     setPosts(posts.map(post =>
@@ -61,6 +68,8 @@ function FeedPage() {
   return (
     <div style={{ backgroundColor: '#eaf5f4', minHeight: '100vh', padding: '20px', marginTop: '4px'}}>
       <h1 className="text-center">Community Posts</h1>
+
+      <NewPost onAddPost={handleAddPost} />
       <Row className="mt-3">
         {posts.slice(0, visiblePosts).map((post, index) => {
           const user = users[index];
