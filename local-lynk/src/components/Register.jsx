@@ -13,6 +13,8 @@ function RegisterPage() {
         confirmPassword: '',
     });
 
+    console.log("Register page")
+
     const [errorMessage, setErrorMessage] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
 
