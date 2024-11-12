@@ -65,9 +65,8 @@ const HomePage = () => {
           <h1>Welcome to LocalLynk!</h1>
           <br />
           <p>
-            LocalLynk is a project created by four Coding Temple alumni for their
-            final project. Designed with the purpose to connect others with
-            contractors in their area, we understand community is the forefront to
+            LocalLynk is a project created by four Coding Temple alumni for their technical residency project. 
+            Its purpose is to connect community members with local contractors, freelancers, and other professionals in their area. We understand community is the forefront to
             the building blocks of the world.
           </p>
 

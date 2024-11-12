@@ -4,6 +4,7 @@ import { Card, Form, Button } from 'react-bootstrap';
 function NewPost({ onAddPost }) {
     const [title, setTitle] = useState("");
     const [body, setBody] = useState("");
+    console.log("New post", onAddPost)
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -21,6 +22,7 @@ function NewPost({ onAddPost }) {
             };
 
             onAddPost(newPost);
+        
             setTitle("");
             setBody("");
         }
