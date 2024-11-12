@@ -11,17 +11,21 @@ function FeedPage() {
   const [visiblePosts, setVisiblePosts] = useState(6);
 
   useEffect(() => {
+    // Fetch posts
     axios.get("https://jsonplaceholder.typicode.com/posts")
       .then(response => {
-        setPosts(response.data.map(post => ({ ...post, 
+        setPosts(response.data.map(post => ({ 
+          ...post, 
           liked: false, 
           comments: [], 
-          commentVisible: false })));
+          commentVisible: false 
+        })));
       })
       .catch(error => {
         console.error("Error fetching posts:", error);
       });
 
+    // Fetch users
     axios.get("https://randomuser.me/api/?results=10")
       .then(response => {
         setUsers(response.data.results);
@@ -35,7 +39,9 @@ function FeedPage() {
   }, []);
 
   const handleLoadMore = () => {
-    setVisiblePosts(visiblePosts + 6);
+    if (visiblePosts < posts.length) {
+      setVisiblePosts(visiblePosts + 6);
+    }
   };
 
   const handleAddPost = (newPost) => {
@@ -55,8 +61,6 @@ function FeedPage() {
     ));
   };
 
- 
-
   if (loading) {
     return (
       <div className="d-flex justify-content-center align-items-center">
@@ -73,6 +77,8 @@ function FeedPage() {
       <Row className="mt-3">
         {posts.slice(0, visiblePosts).map((post, index) => {
           const user = users[index];
+          if (!user) return null; // Skip rendering if no corresponding user
+
           return (
             <Col key={post.id} md={4} className="mb-4">
               <div>
@@ -80,20 +86,20 @@ function FeedPage() {
                   <Card.Body>
                     <div className="d-flex align-items-center mb-3">
                       <img
-                        src={user?.picture?.thumbnail}
-                        alt={`${user?.name?.first} ${user?.name?.last}`}
+                        src={user.picture?.thumbnail}
+                        alt={`${user.name?.first} ${user.name?.last}`}
                         width="40"
                         height="40"
                       />
                       <Link to={`/user/${user.login.uuid}`}>
-                      <strong className="ml-2">{user?.name?.first} {user?.name?.last}</strong>
+                        <strong className="ml-2">{user.name?.first} {user.name?.last}</strong>
                       </Link>
                     </div>
 
                     <Card.Title className="title">{post.title}</Card.Title>
                     <Card.Text>{post.body}</Card.Text>
                     <Button 
-                      variant={post.liked ? "success" : "primary"} 
+                      variant={post.liked ? "warning" : "secondary"} 
                       className="like-button" 
                       onClick={() => handleToggleLikeButton(post.id)}
                     >
@@ -134,7 +140,9 @@ function FeedPage() {
         })}
       </Row>
       {visiblePosts < posts.length && (
-        <Button onClick={handleLoadMore} className="mt-4" style={{ backgroundColor: '#016b66' }}>Load More</Button>
+        <Button onClick={handleLoadMore} className="mt-4" style={{ backgroundColor: '#016b66' }}>
+          Load More
+        </Button>
       )}
     </div>
   );
