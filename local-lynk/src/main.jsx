@@ -1,4 +1,3 @@
-import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
 import { BrowserRouter } from "react-router-dom";
@@ -9,18 +8,14 @@ const domain = "dev-k5jlqrtviyolyvcn.us.auth0.com"
 const clientId = "asmflqshWGpTSBwZE3xVJb92h41DrWij"
 
 
-ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <Auth0Provider
+    domain={domain}
+    clientId={clientId}
+    authorizationParams={{ redirect_uri: window.location.origin }}
+  >
     <BrowserRouter>
-      <Auth0Provider
-        domain={domain}
-        clientId={clientId}
-        authorizationParams={{
-          redirect_uri: window.location.origin,
-        }}
-      >
-        <App />
-      </Auth0Provider>
+      <App />
     </BrowserRouter>
-  </React.StrictMode>
+  </Auth0Provider>
 );
