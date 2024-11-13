@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Card, Button, Row, Col, Spinner, Form } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import NewPost from "./NewPost";
 
 function FeedPage() {
   const [posts, setPosts] = useState([]);
@@ -10,15 +11,21 @@ function FeedPage() {
   const [visiblePosts, setVisiblePosts] = useState(6);
 
   useEffect(() => {
+    // Fetch posts
     axios.get("https://jsonplaceholder.typicode.com/posts")
       .then(response => {
-        // Initialize posts with comments and liked properties
-        setPosts(response.data.map(post => ({ ...post, liked: false, comments: [], commentVisible: false })));
+        setPosts(response.data.map(post => ({ 
+          ...post, 
+          liked: false, 
+          comments: [], 
+          commentVisible: false 
+        })));
       })
       .catch(error => {
         console.error("Error fetching posts:", error);
       });
 
+    // Fetch users
     axios.get("https://randomuser.me/api/?results=10")
       .then(response => {
         setUsers(response.data.results);
@@ -32,8 +39,14 @@ function FeedPage() {
   }, []);
 
   const handleLoadMore = () => {
-    setVisiblePosts(visiblePosts + 6);
+    if (visiblePosts < posts.length) {
+      setVisiblePosts(visiblePosts + 6);
+    }
   };
+
+  const handleAddPost = (newPost) => {
+    setPosts((prevPosts) => [newPost, ...prevPosts]);
+  }
 
   const handleToggleLikeButton = (postId) => {
     setPosts(posts.map(post =>
@@ -48,8 +61,6 @@ function FeedPage() {
     ));
   };
 
- 
-
   if (loading) {
     return (
       <div className="d-flex justify-content-center align-items-center">
@@ -59,32 +70,36 @@ function FeedPage() {
   }
 
   return (
-    <div className="container mt-4">
+    <div style={{ backgroundColor: '#eaf5f4', minHeight: '100vh', padding: '20px', marginTop: '4px'}}>
       <h1 className="text-center">Community Posts</h1>
+
+      <NewPost onAddPost={handleAddPost} />
       <Row className="mt-3">
         {posts.slice(0, visiblePosts).map((post, index) => {
           const user = users[index];
+          if (!user) return null; // Skip rendering if no corresponding user
+
           return (
             <Col key={post.id} md={4} className="mb-4">
               <div>
-                <Card style={{ boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)" }}>
+                <Card style={{ boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.2)" }}>
                   <Card.Body>
                     <div className="d-flex align-items-center mb-3">
                       <img
-                        src={user?.picture?.thumbnail}
-                        alt={`${user?.name?.first} ${user?.name?.last}`}
+                        src={user.picture?.thumbnail}
+                        alt={`${user.name?.first} ${user.name?.last}`}
                         width="40"
                         height="40"
                       />
                       <Link to={`/user/${user.login.uuid}`}>
-                      <strong className="ml-2">{user?.name?.first} {user?.name?.last}</strong>
+                        <strong className="ml-2">{user.name?.first} {user.name?.last}</strong>
                       </Link>
                     </div>
 
                     <Card.Title className="title">{post.title}</Card.Title>
                     <Card.Text>{post.body}</Card.Text>
                     <Button 
-                      variant={post.liked ? "success" : "primary"} 
+                      variant={post.liked ? "warning" : "secondary"} 
                       className="like-button" 
                       onClick={() => handleToggleLikeButton(post.id)}
                     >
@@ -102,7 +117,7 @@ function FeedPage() {
                       <Form.Group controlId="commentInput" className="mt-3">
                         <Form.Control type="text" placeholder="Add a comment" />
                       </Form.Group>
-                      <Button variant="primary" type="submit" className="mt-2">
+                      <Button variant="primary" type="submit" style={{ backgroundColor: '#016b66' }}>
                         Comment
                       </Button>
                     </Form>
@@ -125,7 +140,9 @@ function FeedPage() {
         })}
       </Row>
       {visiblePosts < posts.length && (
-        <Button onClick={handleLoadMore} className="mt-4" variant="secondary">Load More</Button>
+        <Button onClick={handleLoadMore} className="mt-4" style={{ backgroundColor: '#016b66' }}>
+          Load More
+        </Button>
       )}
     </div>
   );

@@ -7,6 +7,7 @@ import FeedPage from "./components/Feed";
 import Callback from "./auth0/Callback";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useNavigate } from "react-router-dom";
+import UsersProfile from "./components/UserProfile";
 
 function App() {
   const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
@@ -26,6 +27,7 @@ function App() {
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/feed" element={<FeedPage />} />
         <Route path="/callback" element={<Callback />} />
+        <Route path="/user/:userId" element={<UsersProfile />} />
       </Routes>
     </div>
   );
