@@ -8,10 +8,10 @@ function FeedPage() {
   const [posts, setPosts] = useState([]);
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [person, setPerson] = useState([]); //new state for person
   const [visiblePosts, setVisiblePosts] = useState(6);
 
   useEffect(() => {
-    // Fetch posts
     axios.get("https://jsonplaceholder.typicode.com/posts")
       .then(response => {
         setPosts(response.data.map(post => ({ 
@@ -25,8 +25,8 @@ function FeedPage() {
         console.error("Error fetching posts:", error);
       });
 
-    // Fetch users
-    axios.get("https://randomuser.me/api/?results=10")
+
+    axios.get("https://randomuser.me/api/?results=36")
       .then(response => {
         setUsers(response.data.results);
       })
@@ -36,17 +36,18 @@ function FeedPage() {
       .finally(() => {
         setLoading(false);
       });
-  }, []);
+  }, []); //  dynamic pass id (`$uuid`) not using state to store it, because not using state, it's redoing the api call, make another api call that gets a specific person. Store that in a state. Can pass as a prop
+  // function takes in parameter, take in id, want all other information, put it in state
+  
 
-  const handleLoadMore = () => {
-    if (visiblePosts < posts.length) {
-      setVisiblePosts(visiblePosts + 6);
-    }
-  };
+  // const handleLoadMore = () => {
+  //   setVisiblePosts(preVisiblePosts => preVisiblePosts + 6);
+  // };
 
-  const handleAddPost = (newPost) => {
-    setPosts((prevPosts) => [newPost, ...prevPosts]);
-  }
+ 
+
+  // not taking the post and doing anything with it, which may be where the issue is, fix this, go check old work to double check
+  // pass that post threw, what is happening i am passing the entire function 
 
   const handleToggleLikeButton = (postId) => {
     setPosts(posts.map(post =>
@@ -74,15 +75,18 @@ function FeedPage() {
       <h1 className="text-center">Community Posts</h1>
 
       <NewPost onAddPost={handleAddPost} />
-      <Row className="mt-3">
-        {posts.slice(0, visiblePosts).map((post, index) => {
+
+      {// this is the start of the posts row
+      }
+      <Row className="mt-3 justify-content-center align-items-center">
+          {posts.map((post, index) => {
           const user = users[index];
-          if (!user) return null; // Skip rendering if no corresponding user
+          if (!user) return null;
 
           return (
-            <Col key={post.id} md={4} className="mb-4">
+            <Col key={post.id} md={8} className="mb-4">
               <div>
-                <Card style={{ boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.2)" }}>
+                <Card style={{ boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.4)" }}>
                   <Card.Body>
                     <div className="d-flex align-items-center mb-3">
                       <img
@@ -91,7 +95,7 @@ function FeedPage() {
                         width="40"
                         height="40"
                       />
-                      <Link to={`/user/${user.login.uuid}`}>
+                      <Link to={`/user/${user.login.username}`}>
                         <strong className="ml-2">{user.name?.first} {user.name?.last}</strong>
                       </Link>
                     </div>
@@ -117,7 +121,7 @@ function FeedPage() {
                       <Form.Group controlId="commentInput" className="mt-3">
                         <Form.Control type="text" placeholder="Add a comment" />
                       </Form.Group>
-                      <Button variant="primary" type="submit" style={{ backgroundColor: '#016b66' }}>
+                      <Button variant="primary" type="submit" className="mt-3" style={{ backgroundColor: '#016b66' }}>
                         Comment
                       </Button>
                     </Form>
@@ -139,11 +143,11 @@ function FeedPage() {
           );
         })}
       </Row>
-      {visiblePosts < posts.length && (
+      {/* {visiblePosts < posts.length && (
         <Button onClick={handleLoadMore} className="mt-4" style={{ backgroundColor: '#016b66' }}>
           Load More
         </Button>
-      )}
+      )} */}
     </div>
   );
 }
