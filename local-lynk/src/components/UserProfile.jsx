@@ -33,7 +33,7 @@ function UsersProfile() {
     return(
         <div style={{ backgroundColor: '#eaf5f4', minHeight: '100vh', padding: '20px' }}>
             {user ? (
-                <Card style={{ width: '22rem', margin: 'auto', padding: '20px', borderRadius: '20px', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)' }}>
+                <Card style={{ width: '22rem', margin: 'auto', padding: 'auto', borderRadius: '20px', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)' }}>
                     <Card.Body>
                         <div style={{ textAlign: 'center', marginBottom: '15px' }}>
                             

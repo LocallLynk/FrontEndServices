@@ -8,16 +8,20 @@ export const SearchBar = ({ setResults }) => {
 
         // we need to have this go to backend with the services, but for now I am just using Jsonplaceholder so we can see how it works!
     const fetchData = (value) => {
-        fetch("https://jsonplaceholder.typicode.com/posts").then((response) => response.json()).then(json => {
-            const results = json.filter((post) => {
-                return value && post && post.title && post.title.toLowerCase().includes(value)
+        fetch("https://jsonplaceholder.typicode.com/posts")
+            .then((response) => response.json())
+            .then((json) => {
+                const results = json.filter((post) => {
+                return (
+                    value &&
+                    post &&
+                    post.title &&
+                    post.title.toLowerCase().includes(value)
+                );
+                });
+                setResults(results);
             });
-            console.log(results)
-            setResults(results);
-        });
-    
-    }
-
+        };
     const handleChange = (value) => {
         setInput(value)
         fetchData(value)
@@ -30,5 +34,5 @@ export const SearchBar = ({ setResults }) => {
 
         </div>
 
-    )
-}
+    );
+};
