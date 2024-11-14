@@ -4,14 +4,17 @@ import { Card, Button, Row, Col, Spinner, Form } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { useAuth0 } from '@auth0/auth0-react';
 import NewPost from "./NewPost";
+import { SearchBar } from "./Searchbar";
+import { SearchResultsList } from "./SearchResultsList";
 
 function FeedPage() {
   const [posts, setPosts] = useState([]);
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [person, setPerson] = useState([]); //new state for person
+  const [results, setResults] = useState([]);
   // const [visiblePosts, setVisiblePosts] = useState(6);
-  const { user, isAuthenticated, isLoading, loginWithRedirect, logout } = useAuth0();
+
 
   useEffect(() => {
     axios.get("https://jsonplaceholder.typicode.com/posts")
@@ -22,6 +25,7 @@ function FeedPage() {
           comments: [], 
           commentVisible: false 
         })));
+        setResults(response.data);
       })
       .catch(error => {
         console.error("Error fetching posts:", error);
@@ -86,6 +90,7 @@ function FeedPage() {
           {posts.map((post, index) => {
           const user = users[index];
           if (!user) return null;
+        
 
           return (
             <Col key={post.id} md={10} className="mb-4">

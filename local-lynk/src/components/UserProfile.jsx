@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { Button, Card } from "react-bootstrap";
-import ProfilePictureChange from "./ProfilePictureChange";
+import ProfilePictureChanger from "./ChangeAvatar.jsx"
+
 
 function UsersProfile() {
     const { userId } = useParams();
@@ -34,6 +35,7 @@ function UsersProfile() {
                 <Card style={{ width: '22rem', margin: 'auto', padding: '20px', borderRadius: '20px', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)' }}>
                     <Card.Body>
                         <div style={{ textAlign: 'center', marginBottom: '15px' }}>
+                            
                             <img
                                 src={user?.picture?.large}
                                 alt={`${user?.name?.first} ${user?.name?.last}`}

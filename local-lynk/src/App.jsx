@@ -20,7 +20,7 @@ function App() {
 
   return (
     <div>
-      {/* <NavigationBar isAuthenticated={isAuthenticated} loginWithRedirect={loginWithRedirect} handleLogout={handleLogout} /> */}
+      { <NavigationBar isAuthenticated={isAuthenticated} loginWithRedirect={loginWithRedirect} handleLogout={handleLogout} /> }
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
