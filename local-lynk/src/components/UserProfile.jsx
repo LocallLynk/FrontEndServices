@@ -3,6 +3,7 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import { Button, Card } from "react-bootstrap";
 import ProfilePictureChanger from "./ChangeAvatar.jsx"
+import Ratings from "./Services/StaticRatings.jsx";
 
 
 function UsersProfile() {
@@ -53,7 +54,7 @@ function UsersProfile() {
                             <strong>Zipcode: </strong>
                         </Card.Text>
                         <Card.Text>
-                            <strong>Overall Rating: </strong>
+                            <strong>Overall Rating: <Ratings /> </strong>
                         </Card.Text>
                         <Card.Text>
                             <strong>Skills: </strong>

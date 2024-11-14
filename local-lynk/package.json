@@ -11,6 +11,9 @@
   },
   "dependencies": {
     "@auth0/auth0-react": "^2.2.4",
+    "@emotion/react": "^11.13.3",
+    "@emotion/styled": "^11.13.0",
+    "@mui/material": "^6.1.7",
     "@stripe/react-stripe-js": "^2.9.0",
     "@stripe/stripe-js": "^4.10.0",
     "@syncfusion/ej2-react-image-editor": "^27.1.58",

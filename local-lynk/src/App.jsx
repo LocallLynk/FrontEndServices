@@ -19,7 +19,7 @@ function App() {
   };
 
   return (
-     <div>
+    <div>
       {/* <NavigationBar isAuthenticated={isAuthenticated} loginWithRedirect={loginWithRedirect} handleLogout={handleLogout} /> */}
       <Routes>
         <Route path="/" element={<HomePage />} />
@@ -27,6 +27,7 @@ function App() {
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/feed" element={<FeedPage />} />
         <Route path="/callback" element={<Callback />} />
+        <Route path="/user/:userId" element={<UsersProfile />} />
       </Routes>
     </div>
   );
