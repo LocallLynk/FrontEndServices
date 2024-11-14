@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@syncfusion/ej2-react-image-editor": "^27.1.58",
     "react-bootstrap": "^2.10.5"
   }
 }

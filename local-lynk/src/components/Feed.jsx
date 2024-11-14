@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Card, Button, Row, Col, Spinner, Form } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { useAuth0 } from '@auth0/auth0-react';
 import NewPost from "./NewPost";
 
 function FeedPage() {
@@ -9,7 +10,8 @@ function FeedPage() {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [person, setPerson] = useState([]); //new state for person
-  const [visiblePosts, setVisiblePosts] = useState(6);
+  // const [visiblePosts, setVisiblePosts] = useState(6);
+  const { user, isAuthenticated, isLoading, loginWithRedirect, logout } = useAuth0();
 
   useEffect(() => {
     axios.get("https://jsonplaceholder.typicode.com/posts")
@@ -44,7 +46,9 @@ function FeedPage() {
   //   setVisiblePosts(preVisiblePosts => preVisiblePosts + 6);
   // };
 
- 
+  const handleAddPost = (newPost) => {
+    setPosts((prevPosts) => [newPost, ...prevPosts]);
+  }
 
   // not taking the post and doing anything with it, which may be where the issue is, fix this, go check old work to double check
   // pass that post threw, what is happening i am passing the entire function 
@@ -84,7 +88,7 @@ function FeedPage() {
           if (!user) return null;
 
           return (
-            <Col key={post.id} md={8} className="mb-4">
+            <Col key={post.id} md={10} className="mb-4">
               <div>
                 <Card style={{ boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.4)" }}>
                   <Card.Body>
