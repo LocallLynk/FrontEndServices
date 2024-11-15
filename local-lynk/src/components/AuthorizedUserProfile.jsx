@@ -4,9 +4,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { Button, Card, Form } from "react-bootstrap";
-import ProfilePictureChanger from "./ChangeAvatar.jsx"
-import Ratings from "./Services/StaticRatings.jsx";
-
+import Ratings from "./Services/Rating";
 
 function AuthorizedUser() {
     const { userId } = useParams();
@@ -14,13 +12,16 @@ function AuthorizedUser() {
     const [loading, setLoading] = useState(true);
     const [isEditing, setIsEditing] = useState(false);
     const [editedZipcode, setEditedZipcode] = useState('');
-
+    const [editedUsername, setEditedUsername] = useState('');
+   
+    
     // this code will need to be rewritten once we get backend!
     useEffect(() => {
         axios.get(`https://randomuser.me/api/?seed=${userId}`)
         .then(response => {
           setUser(response.data.results[0]);
           setEditedZipcode(response.data.results[0].location?.postcode);
+          setEditedUsername(userData.login.username)
           setLoading(false)
         })
         .catch(error => {
@@ -95,10 +96,10 @@ function AuthorizedUser() {
 
                         
                         <div>
-                            <Button onClick={handleEditToggle}>{isEditing ? 'Cancel' : 'Edit Profile'}</Button>
+                            <Button onClick={handleEditToggle} style={{ backgroundColor: '#016b66' }}>{isEditing ? 'Cancel' : 'Edit Profile'}</Button>
     
                             {isEditing && (
-                                <Button variant="success" onClick={handleSave} style={{ marginLeft: '10px' }}>
+                                <Button variant="success" onClick={handleSave} style={{ backgroundColor: '#5D395F', marginLeft: '10px' }}>
                                     Save Changes
                                 </Button>
                             )}
