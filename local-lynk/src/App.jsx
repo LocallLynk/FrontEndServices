@@ -8,6 +8,7 @@ import Callback from "./auth0/Callback";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useNavigate } from "react-router-dom";
 import UsersProfile from "./components/UserProfile";
+import AuthorizedUser from "./components/AuthorizedUser";
 
 function App() {
   const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
@@ -28,6 +29,8 @@ function App() {
         <Route path="/feed" element={<FeedPage />} />
         <Route path="/callback" element={<Callback />} />
         <Route path="/user/:userId" element={<UsersProfile />} />
+        {//<Route path="/profile" element={<AuthorizedUser />} /> this goes to the user's profile page, just testing it out with some things
+}
       </Routes>
     </div>
   );
