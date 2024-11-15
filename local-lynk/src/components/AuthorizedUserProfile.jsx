@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-import { Button, Card, Form } from "react-bootstrap";
+import { Button, Card, Form, FormControl } from "react-bootstrap";
 import Ratings from "./Services/Rating";
 
 function AuthorizedUser() {
@@ -39,7 +39,8 @@ function AuthorizedUser() {
         console.log("Save changes.");
         setUser(prevState => ({
             ...prevState,
-            location: { postcode: editedZipcode }
+            location: { postcode: editedZipcode },
+            login: { username: editedUsername },
         }))
         setIsEditing(false);
     };
@@ -62,12 +63,25 @@ function AuthorizedUser() {
                             />
                         </div>
                         <Card.Title style={{ textAlign: 'center' }}>{user.name.first} {user.name.last}</Card.Title>
-                        <Card.Subtitle style={{ textAlign: 'center'}}>{user.login.username}</Card.Subtitle>
+                        <Card.Subtitle style={{ textAlign: 'center'}}>
+                            {isEditing ? (
+                                <FormControl
+                                type="text"
+                                minLength={5}
+                                value={editedUsername}
+                                placeholder="Enter new username"
+                                onChange={e => setEditedUsername(e.target.value)}
+
+                                />
+                            ): (
+                                user.login.username
+                            )}
+                            </Card.Subtitle>
 
                     {// Note that some of this information we will get from the backend! 
                         }
                         <Card.Text>
-                            <strong>Zipcode: </strong>
+                            <strong className="mt-3">Zipcode: </strong>
                             {isEditing ? (
                                 <Form.Control
                                     type="text"
