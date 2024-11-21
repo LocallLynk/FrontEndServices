@@ -2,9 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { Button, Card } from "react-bootstrap";
-import ProfilePictureChanger from "./ChangeAvatar.jsx"
-import Ratings from "./Services/StaticRatings.jsx";
-
+import Ratings from "../Features/Rating";
 
 function UsersProfile() {
     const { userId } = useParams();

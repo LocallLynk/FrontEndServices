@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Container, Form, Button, Alert } from 'react-bootstrap';
-import './css/login.css';
+import '../../css/login.css';
 
 function RegisterPage() {
     const [formData, setFormData] = useState({

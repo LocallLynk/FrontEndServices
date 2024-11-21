@@ -3,7 +3,7 @@ import axios from "axios";
 import { Card, Button, Row, Col, Spinner, Form } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { useAuth0 } from '@auth0/auth0-react';
-import NewPost from "./NewPost";
+import NewPost from "../Features/NewPost";
 
 function FeedPage() {
   const [posts, setPosts] = useState([]);

@@ -1,8 +1,8 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { useNavigate, NavLink } from 'react-router-dom';
 import { Container, Row, Col, Form, Button, Alert } from 'react-bootstrap';
-import UserContext from './UserContext';  
-import './css/login.css';
+import UserContext from '../UserContext';
+import "../../css/login.css";
 
 function LoginPage() {
     const [username, setUsername] = useState('');
