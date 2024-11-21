@@ -4,7 +4,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { Button, Card, Form, FormControl } from "react-bootstrap";
-import Ratings from "./Services/Rating";
+import Ratings from "../Features/Rating";
+import ProfilePicture from "../Features/ChangeAvatar";
 
 function AuthorizedUser() {
     const { userId } = useParams();
@@ -13,6 +14,7 @@ function AuthorizedUser() {
     const [isEditing, setIsEditing] = useState(false);
     const [editedZipcode, setEditedZipcode] = useState('');
     const [editedUsername, setEditedUsername] = useState('');
+    const [profilePic, setProfilePic] = useState(null);
    
     
     // this code will need to be rewritten once we get backend!
@@ -45,6 +47,10 @@ function AuthorizedUser() {
         setIsEditing(false);
     };
 
+    const handleProfilePicture = (e) => {
+        console.log("Edit button for changing profile picture")
+    }
+
     if (loading) return <p>Loading....</p>;
 
     return(
@@ -61,13 +67,16 @@ function AuthorizedUser() {
                                 height="100"
                                 style={{ borderRadius: '85%' }}
                             />
+                            
                         </div>
-                        <Card.Title style={{ textAlign: 'center' }}>{user.name.first} {user.name.last}</Card.Title>
+                        <Button onClick={handleProfilePicture} style={{ backgroundColor: '#016b66', justifyContent: 'center' }}>📷</Button>
+
+                        <Card.Title style={{ textAlign: 'center', marginTop: "3px" }}>{user.name.first} {user.name.last}</Card.Title>
                         <Card.Subtitle style={{ textAlign: 'center'}}>
                             {isEditing ? (
                                 <FormControl
                                 type="text"
-                                minLength={5}
+                                minLength={0}
                                 value={editedUsername}
                                 placeholder="Enter new username"
                                 onChange={e => setEditedUsername(e.target.value)}
