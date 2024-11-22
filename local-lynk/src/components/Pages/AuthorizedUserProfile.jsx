@@ -4,8 +4,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { Button, Card, Form, FormControl } from "react-bootstrap";
-import Ratings from "../Features/Rating";
-import ProfilePicture from "../Features/ChangeAvatar";
+import Ratings from "../Features/StaticRatings";
 
 function AuthorizedUser() {
     const { userId } = useParams();
@@ -47,9 +46,18 @@ function AuthorizedUser() {
         setIsEditing(false);
     };
 
-    const handleProfilePicture = (e) => {
-        console.log("Edit button for changing profile picture")
-    }
+    const handleProfilePictureChange = (e) => {
+        const file = e.target.files[0];  // Get the first file from the input
+        if (file) {
+            if (file.type.startsWith('image/')) {
+                const imageUrl = URL.createObjectURL(file);
+                console.log("New image");
+                setProfilePic(imageUrl); 
+            } else {
+                alert("Please select an image file.");
+            }
+        }
+    };
 
     if (loading) return <p>Loading....</p>;
 
@@ -61,16 +69,31 @@ function AuthorizedUser() {
                         <div style={{ textAlign: 'center', marginBottom: '15px' }}>
                             
                             <img
-                                src={user?.picture?.large}
+                                src={profilePic || user?.picture?.large}
                                 alt={`${user?.name?.first} ${user?.name?.last}`}
                                 width="100"
                                 height="100"
                                 style={{ borderRadius: '85%' }}
+                                
                             />
                             
                         </div>
-                        <Button onClick={handleProfilePicture} style={{ backgroundColor: '#016b66', justifyContent: 'center' }}>📷</Button>
+                        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                        <Button 
+                            onClick={() => document.getElementById('profilePicInput').click()}  // Trigger file input click
+                            style={{ backgroundColor: '#7ED2D2', fontSize: '12px', padding: '5px 10px' }}>
+                            📷
+                        </Button>
 
+                        <input
+                            id="profilePicInput"
+                            type="file"
+                            accept="image/*"  // Only allow image files
+                            style={{ display: 'none' }}
+                            onChange={handleProfilePictureChange}
+                        />
+     
+                        </div>
                         <Card.Title style={{ textAlign: 'center', marginTop: "3px" }}>{user.name.first} {user.name.last}</Card.Title>
                         <Card.Subtitle style={{ textAlign: 'center'}}>
                             {isEditing ? (
@@ -118,7 +141,7 @@ function AuthorizedUser() {
                         </Card.Text>
 
                         
-                        <div>
+                        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                             <Button onClick={handleEditToggle} style={{ backgroundColor: '#016b66' }}>{isEditing ? 'Cancel' : 'Edit Profile'}</Button>
     
                             {isEditing && (
