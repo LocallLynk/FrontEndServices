@@ -24,8 +24,7 @@ function AuthorizedUser() {
         .then(response => {
           setUser(response.data.results[0]);
           setEditedZipcode(response.data.results[0].location?.postcode);
-          setEditedUsername(userData.login.username)
-          setEditedSkills(userData.skills || []);
+          setEditedUsername(response.data.results[0].login.username)
           setLoading(false)
         })
         .catch(error => {
@@ -71,7 +70,7 @@ function AuthorizedUser() {
     }
 
     const handleDeleteSkill = (skillDelete) => {
-        setEditedSkills(editedSkills.filter(skill => skill !== skillDelete))
+        setEditedSkills(prevSkills => prevSkills.filter(skill => skill !== skillDelete));
     };
 
     if (loading) return <p>Loading....</p>;
