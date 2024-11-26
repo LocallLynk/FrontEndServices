@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useAuth0 } from "@auth0/auth0-react";
 
+
 const RegisterPage = () => {
   const { user } = useAuth0(); // Get the user info from Auth0
   const navigate = useNavigate();
@@ -56,6 +57,19 @@ const RegisterPage = () => {
   return (
     <div className="register-page">
       <h2>Register Your Profile</h2>
+      
+        <div className="form-group">
+          <label htmlFor="username">Username</label>
+          <input
+            type="text"
+            id="username"
+            name="username"
+            value={formData.username}
+            onChange={handleChange}
+            required
+          />
+        </div>
+
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="first_name">First Name</label>
@@ -93,17 +107,6 @@ const RegisterPage = () => {
           />
         </div>
 
-        <div className="form-group">
-          <label htmlFor="username">Username</label>
-          <input
-            type="text"
-            id="username"
-            name="username"
-            value={formData.username}
-            onChange={handleChange}
-            required
-          />
-        </div>
 
         <div className="form-group">
           <label htmlFor="zipcode">Zipcode</label>
