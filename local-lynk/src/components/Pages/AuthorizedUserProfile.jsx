@@ -14,6 +14,8 @@ function AuthorizedUser() {
     const [editedZipcode, setEditedZipcode] = useState('');
     const [editedUsername, setEditedUsername] = useState('');
     const [profilePic, setProfilePic] = useState(null);
+    const [editedSkills, setEditedSkills] = useState(['One Skill', 'Another One']);
+    const [newSkill, setNewSkill] = useState('');
    
     
     // this code will need to be rewritten once we get backend!
@@ -23,6 +25,7 @@ function AuthorizedUser() {
           setUser(response.data.results[0]);
           setEditedZipcode(response.data.results[0].location?.postcode);
           setEditedUsername(userData.login.username)
+          setEditedSkills(userData.skills || []);
           setLoading(false)
         })
         .catch(error => {
@@ -42,6 +45,7 @@ function AuthorizedUser() {
             ...prevState,
             location: { postcode: editedZipcode },
             login: { username: editedUsername },
+            skills: editedSkills
         }))
         setIsEditing(false);
     };
@@ -57,6 +61,17 @@ function AuthorizedUser() {
                 alert("Please select an image file.");
             }
         }
+    };
+
+    const handleAddSkill = () => {
+        if (newSkill.trim()) {
+            setEditedSkills([...editedSkills, newSkill.trim()]);
+            setNewSkill('');
+        }
+    }
+
+    const handleDeleteSkill = (skillDelete) => {
+        setEditedSkills(editedSkills.filter(skill => skill !== skillDelete))
     };
 
     if (loading) return <p>Loading....</p>;
@@ -130,12 +145,43 @@ function AuthorizedUser() {
                             <strong>Overall Rating: <Ratings /> </strong>
                         </Card.Text>
                         <Card.Text>
-                            <strong>Skills: </strong>
-                            <ul>
-                                <li>One Skill</li>
-                                <li>Another One</li>
-                            </ul>
+                        <strong>Skills: </strong>
+                            {isEditing ? (
+                                <>
+                                <div style={{ display: 'flex', alignItems: 'center' }}>
+                                    <Form.Control
+                                        type="text"
+                                        style={{ width: '200px' }}
+                                        value={newSkill}
+                                        onChange={e => setNewSkill(e.target.value)}
+                                        placeholder="Enter new skill"
+                                    />
+                                    <Button size="sm" onClick={handleAddSkill} style={{ marginTop: '2px', marginLeft: '5px', fontSize: '10px', backgroundColor: '#5D395F' }}>+</Button>
+                                    </div>
+                                    <ul>
+                                        {editedSkills.map((skill, index) => (
+                                            <li key={index}>
+                                                {skill}
+                                                <Button 
+                                                    size="sm" 
+                                                    onClick={() => handleDeleteSkill(skill)} 
+                                                    style={{ marginLeft: '5px', padding: '2px 5px', fontSize: '10px', backgroundColor: '#016b66' }}
+                                                >
+                                                    -
+                                                </Button>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </>
+                            ) : (
+                                <ul>
+                                    {editedSkills.map((skill, index) => (
+                                        <li key={index}>{skill}</li>
+                                    ))}
+                                </ul>
+                            )}
                         </Card.Text>
+
                         <Card.Text>
                             <strong>Created On:</strong><p>November 2024</p>
                         </Card.Text>
