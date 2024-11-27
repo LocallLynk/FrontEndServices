@@ -2,58 +2,42 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Card, Button, Row, Col, Spinner, Form } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { useAuth0 } from '@auth0/auth0-react';
 import NewPost from "../Features/NewPost";
 
 function FeedPage() {
   const [posts, setPosts] = useState([]);
-  const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [person, setPerson] = useState([]); //new state for person
-  const [results, setResults] = useState([]);
-  // const [visiblePosts, setVisiblePosts] = useState(6);
-
 
   useEffect(() => {
-    axios.get("https://jsonplaceholder.typicode.com/posts")
-      .then(response => {
-        setPosts(response.data.map(post => ({ 
-          ...post, 
-          liked: false, 
-          comments: [], 
-          commentVisible: false 
-        })));
-        setResults(response.data);
-      })
-      .catch(error => {
+    const fetchPosts = async () => {
+      try {
+        const response = await axios.get("https://backendservices-hsz0.onrender.com/post/get");
+        const { posts } = response.data;
+
+        const mappedPosts = posts.map(post => ({
+          ...post,
+          authorName: `${post.neighbor.first_name} ${post.neighbor.last_name}`,
+          liked: false, // Initialize the liked state
+          comments: post.comments.map(comment => ({
+            ...comment,
+            authorName: `${comment.neighbor.first_name} ${comment.neighbor.last_name}`,
+          })),
+        }));
+
+        setPosts(mappedPosts);
+      } catch (error) {
         console.error("Error fetching posts:", error);
-      });
-
-
-    axios.get("https://randomuser.me/api/?results=36")
-      .then(response => {
-        setUsers(response.data.results);
-      })
-      .catch(error => {
-        console.error("Error fetching users:", error);
-      })
-      .finally(() => {
+      } finally {
         setLoading(false);
-      });
-  }, []); //  dynamic pass id (`$uuid`) not using state to store it, because not using state, it's redoing the api call, make another api call that gets a specific person. Store that in a state. Can pass as a prop
-  // function takes in parameter, take in id, want all other information, put it in state
-  
+      }
+    };
 
-  // const handleLoadMore = () => {
-  //   setVisiblePosts(preVisiblePosts => preVisiblePosts + 6);
-  // };
+    fetchPosts();
+  }, []);
 
   const handleAddPost = (newPost) => {
     setPosts((prevPosts) => [newPost, ...prevPosts]);
-  }
-
-  // not taking the post and doing anything with it, which may be where the issue is, fix this, go check old work to double check
-  // pass that post threw, what is happening i am passing the entire function 
+  };
 
   const handleToggleLikeButton = (postId) => {
     setPosts(posts.map(post =>
@@ -64,7 +48,7 @@ function FeedPage() {
   const handleAddComment = (postId, commentText) => {
     if (commentText.trim() === "") return;
     setPosts(posts.map(post =>
-      post.id === postId ? { ...post, comments: [...post.comments, commentText] } : post
+      post.id === postId ? { ...post, comments: [...post.comments, { content: commentText }] } : post
     ));
   };
 
@@ -77,84 +61,87 @@ function FeedPage() {
   }
 
   return (
-    <div style={{ backgroundColor: '#eaf5f4', minHeight: '100vh', padding: '20px', marginTop: '4px'}}>
+    <div style={{ backgroundColor: '#eaf5f4', minHeight: '100vh', padding: '20px', marginTop: '4px' }}>
       <h1 className="text-center">Community Posts</h1>
 
       <NewPost onAddPost={handleAddPost} />
 
-      {// this is the start of the posts row
-      }
       <Row className="mt-3 justify-content-center align-items-center">
-          {posts.map((post, index) => {
-          const user = users[index];
-          if (!user) return null;
-        
-
-          return (
-            <Col key={post.id} md={10} className="mb-4">
-              <div>
-                <Card style={{ boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.4)" }}>
-                  <Card.Body>
-                    <div className="d-flex align-items-center mb-3">
-                      <img
-                        src={user.picture?.thumbnail}
-                        alt={`${user.name?.first} ${user.name?.last}`}
+        {posts.map((post) => (
+          <Col key={post.id} md={10} className="mb-4">
+            <Card style={{ boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.4)" }}>
+                    {/* <img
+                        src={post.profile_pic}
+                        alt={`${post.authorName}`}
                         width="40"
                         height="40"
+                        style= {{ borderRadius: "85%"}}
+                      /> */}
+              <Card.Body>
+                <div className="d-flex align-items-center mb-3">
+                <Link to={`/user/${post.id}`}>
+                  <strong style={{ marginLeft: '4px' }}>{post.authorName}</strong> {post.created_on}
+                  </Link>
+                </div>
+
+                <Card.Title className="title">{post.title}</Card.Title>
+                <Card.Text>{post.content}</Card.Text>
+
+                <Button
+                  variant={post.liked ? "warning" : "secondary"}
+                  className="like-button"
+                  onClick={() => handleToggleLikeButton(post.id)}
+                >
+                  {post.liked ? "★" : "☆"}
+                </Button>
+
+                <div className="mt-3">
+                  <h6 style={{ textDecoration: "underline"}}>Comments</h6>
+                  {post.comments.length > 0 ? (
+                    post.comments.map((comment, index) => (
+                      <div key={index}>
+                        <p>
+                          <Link to={`/user/${comment.neighbor_id}`}>
+                          <strong>{comment.authorName}</strong></Link>: {comment.content}
+                          
+                        </p>
+                      </div>
+                    ))
+                  ) : (
+                    <p>No comments yet.</p>
+                  )}
+
+                  {/* Comment Form */}
+                  <Form
+                    onSubmit={e => {
+                      e.preventDefault();
+                      const commentText = e.target.elements.commentInput.value;
+                      handleAddComment(post.id, commentText);
+                      e.target.elements.commentInput.value = ''; // Clear the input
+                    }}
+                  >
+                    <Form.Group controlId="commentInput" className="mt-3">
+                      <Form.Control
+                        type="text"
+                        placeholder="Add a comment"
+                        name="commentInput"
                       />
-                      <Link to={`/user/${user.login.username}`}>
-                        <strong className="ml-2">{user.name?.first} {user.name?.last}</strong>
-                      </Link>
-                    </div>
-
-                    <Card.Title className="title">{post.title}</Card.Title>
-                    <Card.Text>{post.body}</Card.Text>
-                    <Button 
-                      variant={post.liked ? "warning" : "secondary"} 
-                      className="like-button" 
-                      onClick={() => handleToggleLikeButton(post.id)}
+                    </Form.Group>
+                    <Button
+                      variant="primary"
+                      type="submit"
+                      className="mt-3"
+                      style={{ backgroundColor: "#016b66" }}
                     >
-                      {post.liked ? "★" : "☆"}
+                      Comment
                     </Button>
-
-                    <Form
-                      onSubmit={(e) => {
-                        e.preventDefault();
-                        const commentText = e.target.elements.commentInput.value;
-                        handleAddComment(post.id, commentText);
-                        e.target.elements.commentInput.value = '';
-                      }}
-                    >
-                      <Form.Group controlId="commentInput" className="mt-3">
-                        <Form.Control type="text" placeholder="Add a comment" />
-                      </Form.Group>
-                      <Button variant="primary" type="submit" className="mt-3" style={{ backgroundColor: '#016b66' }}>
-                        Comment
-                      </Button>
-                    </Form>
-
-                    <div className="mt-3">
-                      <h6>Comments:</h6>
-                      {post.comments.length > 0 ? (
-                        post.comments.map((comment, idx) => (
-                          <p key={idx} className="comment">{comment}</p>
-                        ))
-                      ) : (
-                        <p>No comments yet.</p>
-                      )}
-                    </div>
-                  </Card.Body>
-                </Card>
-              </div>
-            </Col>
-          );
-        })}
+                  </Form>
+                </div>
+              </Card.Body>
+            </Card>
+          </Col>
+        ))}
       </Row>
-      {/* {visiblePosts < posts.length && (
-        <Button onClick={handleLoadMore} className="mt-4" style={{ backgroundColor: '#016b66' }}>
-          Load More
-        </Button>
-      )} */}
     </div>
   );
 }
