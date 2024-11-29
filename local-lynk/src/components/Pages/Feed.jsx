@@ -70,23 +70,25 @@ function FeedPage() {
         {posts.map((post) => (
           <Col key={post.id} md={10} className="mb-4">
             <Card style={{ boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.4)" }}>
-                    {/* <img
+                    <img
                         src={post.profile_pic}
                         alt={`${post.authorName}`}
                         width="40"
                         height="40"
                         style= {{ borderRadius: "85%"}}
-                      /> */}
+                      />
               <Card.Body>
                 <div className="d-flex align-items-center mb-3">
-                <Link to={`/user/${post.id}`}>
-                  <strong style={{ marginLeft: '4px' }}>{post.authorName}</strong> {post.created_on}
-                  </Link>
-                </div>
-
+                      <div style={{ display: 'inline-block' }}>
+                    <Link to={`/user/${post.neighbor?.id}`}>
+                      <strong style={{ marginLeft: '4px' }}>{post.authorName} </strong>
+                    </Link> 
+                      </div>
+                        <div style={{ display: "inline-block", marginLeft: "auto", fontSize: "0.9em", color: 'gray'}}> {post.created_on}
+                        </div>
+                  </div>
                 <Card.Title className="title">{post.title}</Card.Title>
                 <Card.Text>{post.content}</Card.Text>
-
                 <Button
                   variant={post.liked ? "warning" : "secondary"}
                   className="like-button"
@@ -130,7 +132,7 @@ function FeedPage() {
                     <Button
                       variant="primary"
                       type="submit"
-                      className="mt-3"
+                      className="comment-button mt-3"
                       style={{ backgroundColor: "#016b66" }}
                     >
                       Comment
