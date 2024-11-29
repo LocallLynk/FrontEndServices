@@ -29,7 +29,7 @@ function App() {
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/feed" element={<FeedPage />} />
         <Route path="/callback" element={<Callback />} />
-        <Route path="/user/:userId" element={<UsersProfile />} />
+         <Route path="/user/:id" element={<UsersProfile />} />
         {//<Route path="/profile" element={<AuthorizedUser />} /> this goes to the user's profile page, just testing it out with some things
 }
       </Routes>
