@@ -74,7 +74,7 @@ function UsersProfile() {
                             )}
                         </Card.Text>
                         <Card.Text>
-                            <strong>Created On:</strong> October 2024
+                            <strong>Created On:</strong> {user.created_on}
                         </Card.Text>
 
                         <h4>Posts by {user.first_name}</h4>
