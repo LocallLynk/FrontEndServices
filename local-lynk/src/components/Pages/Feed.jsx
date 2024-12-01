@@ -3,6 +3,7 @@ import axios from "axios";
 import { Card, Button, Row, Col, Spinner, Form } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import NewPost from "../Features/NewPost";
+import "../css/Feed.css";
 
 function FeedPage() {
   const [posts, setPosts] = useState([]);
@@ -69,26 +70,30 @@ function FeedPage() {
       <Row className="mt-3 justify-content-center align-items-center">
         {posts.map((post) => (
           <Col key={post.id} md={10} className="mb-4">
-            <Card style={{ boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.4)" }}>
-                    <img
-                        src={post.profile_pic}
-                        alt={`${post.authorName}`}
-                        width="40"
-                        height="40"
-                        style= {{ borderRadius: "85%"}}
-                      />
-              <Card.Body>
-                <div className="d-flex align-items-center mb-3">
-                      <div style={{ display: 'inline-block' }}>
-                    <Link to={`/user/${post.neighbor?.id}`}>
-                      <strong style={{ marginLeft: '4px' }}>{post.authorName} </strong>
-                    </Link> 
-                      </div>
-                        <div style={{ display: "inline-block", marginLeft: "auto", fontSize: "0.9em", color: 'gray'}}> {post.created_on}
-                        </div>
+
+            {// Profile image, name, and date should all be on the same line now
+            }
+            <Card style={{ boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.4)", padding: "10px" }} >
+                <div className="d-flex align-items-center">
+                  <img
+                    src={post.neighbor?.profile_pic}
+                    alt={`${post.authorName}`}
+                    width="40"
+                    height="40"
+                    style={{ borderRadius: "85%", marginRight: "10px" }}
+
+                  />
+                  <Link to={`/user/${post.neighbor?.id}`} >
+                    <strong>{post.authorName}</strong>
+                  </Link>
+                  <div
+                    style={{ marginLeft: "auto", fontSize: "0.9em", color: "gray",}}> {post.created_on}
                   </div>
-                <Card.Title className="title">{post.title}</Card.Title>
+                  </div>
+               
+                <Card.Title className="title mt-3">{post.title}</Card.Title>
                 <Card.Text>{post.content}</Card.Text>
+                <div>
                 <Button
                   variant={post.liked ? "warning" : "secondary"}
                   className="like-button"
@@ -96,6 +101,7 @@ function FeedPage() {
                 >
                   {post.liked ? "★" : "☆"}
                 </Button>
+                </div>
 
                 <div className="mt-3">
                   <h6 style={{ textDecoration: "underline"}}>Comments</h6>
@@ -113,13 +119,12 @@ function FeedPage() {
                     <p>No comments yet.</p>
                   )}
 
-                  {/* Comment Form */}
                   <Form
                     onSubmit={e => {
                       e.preventDefault();
                       const commentText = e.target.elements.commentInput.value;
                       handleAddComment(post.id, commentText);
-                      e.target.elements.commentInput.value = ''; // Clear the input
+                      e.target.elements.commentInput.value = '';
                     }}
                   >
                     <Form.Group controlId="commentInput" className="mt-3">
@@ -139,7 +144,6 @@ function FeedPage() {
                     </Button>
                   </Form>
                 </div>
-              </Card.Body>
             </Card>
           </Col>
         ))}
