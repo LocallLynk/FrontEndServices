@@ -3,7 +3,6 @@ import axios from "axios";
 import { Card, Button, Row, Col, Spinner, Form } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import NewPost from "../Features/NewPost";
-import "../css/Feed.css";
 
 function FeedPage() {
   const [posts, setPosts] = useState([]);
@@ -76,14 +75,14 @@ function FeedPage() {
             <Card style={{ boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.4)", padding: "10px" }} >
                 <div className="d-flex align-items-center">
                   <img
-                    src={post.neighbor?.profile_pic}
+                    src={post.neighbor.profile_pic}
                     alt={`${post.authorName}`}
                     width="40"
                     height="40"
                     style={{ borderRadius: "85%", marginRight: "10px" }}
 
                   />
-                  <Link to={`/user/${post.neighbor?.id}`} >
+                  <Link to={`/user/${post.neighbor.id}`} >
                     <strong>{post.authorName}</strong>
                   </Link>
                   <div

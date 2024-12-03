@@ -22,7 +22,7 @@ function App() {
         {/* Private Routes */}
         <Route element={<PrivateRoute />}>
           <Route path="/feed" element={<FeedPage />} />
-          <Route path="/user/:userId" element={<UsersProfile />} />
+          <Route path="/user/:id" element={<UsersProfile />} />
         </Route>
       </Routes>
     </>

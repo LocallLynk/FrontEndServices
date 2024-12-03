@@ -56,7 +56,8 @@ function UsersProfile() {
                             <strong>Zipcode: </strong> {user.zipcode}
                         </Card.Text>
                         <Card.Text>
-                            <strong>Overall Rating: </strong>{user.overall_ratings || "No ratings yet."}
+                            <strong>Overall Rating: </strong>{user.overall_rating  ? [...Array(user.overall_rating)].map((_, index) => <span key={index}>⭐️ </span>) : "No ratings yet."}  
+                                ({user.num_ratings} reviews)
                         </Card.Text>
                         <Card.Text>
                             <strong>Skills: </strong>
