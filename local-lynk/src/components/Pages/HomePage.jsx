@@ -1,8 +1,9 @@
-import '../css/home.css';
-import { useAuth0 } from '@auth0/auth0-react';
+import AuthButton from "../auth0/AuthButton";
+import "../css/home.css";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const HomePage = () => {
-  const { loginWithRedirect, isAuthenticated, user, isLoading } = useAuth0();
+  const { isAuthenticated, isLoading } = useAuth0();
 
   if (isLoading) return <div>Loading...</div>;
 
@@ -23,16 +24,11 @@ const HomePage = () => {
           <h1>What&apos;s Local?</h1>
           <p>Find out today.</p>
 
-          {/* Auth0 Login Button */}
           {!isAuthenticated ? (
             <div className="auth-btn-container">
-              <button onClick={() => loginWithRedirect()} className="auth-btn">
-                Log In / Sign Up
-              </button>
+              <AuthButton className="auth-btn" /> {/* Login Button */}
             </div>
-          ) : (
-            <p>Hello, {user.name}</p> // Display user's name when authenticated
-          )}
+          ) : null}
         </div>
       </div>
     </div>

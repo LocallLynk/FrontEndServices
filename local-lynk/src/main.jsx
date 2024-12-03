@@ -4,15 +4,16 @@ import { BrowserRouter } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Auth0Provider } from '@auth0/auth0-react';
 
-const domain = "dev-k5jlqrtviyolyvcn.us.auth0.com"
-const clientId = "asmflqshWGpTSBwZE3xVJb92h41DrWij"
-
+const domain = import.meta.env.VITE_AUTH0_DOMAIN;
+const clientId = import.meta.env.VITE_AUTH0_CLIENT_ID;
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <Auth0Provider
     domain={domain}
     clientId={clientId}
-    authorizationParams={{ redirect_uri: window.location.origin }}
+    authorizationParams={{
+      redirect_uri: `${window.location.origin}/feed`, // Redirect to /feed after login
+    }}
   >
     <BrowserRouter>
       <App />
