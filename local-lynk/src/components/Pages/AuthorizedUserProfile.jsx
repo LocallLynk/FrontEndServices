@@ -1,6 +1,6 @@
 // This is the profile page of our user! Right now, since backend isn't connected and we need some authorization added to it, I'm just making it with the Random user API
 
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { Button, Card, Form, FormControl } from "react-bootstrap";
