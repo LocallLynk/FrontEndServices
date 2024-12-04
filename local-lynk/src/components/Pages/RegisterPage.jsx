@@ -1,151 +1,131 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import { useState, useEffect } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
-
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const RegisterPage = () => {
-  const { user } = useAuth0(); // Get the user info from Auth0
+  const { user, isLoading } = useAuth0();
   const navigate = useNavigate();
 
-  // State to store form data
+  // State for form inputs
   const [formData, setFormData] = useState({
     first_name: "",
     last_name: "",
-    email: user?.email || "", // Pre-fill email with Auth0 email
+    email: "",
     phone: "",
-    username: "",
-    password: "",
     zipcode: "",
-    profile_pic: "",
-    overall_rating: 0,
-    num_ratings: 0,
-    num_rated: 0,
-    task_neighbor: false,
-    client_neighbor: false,
-    admin: false,
-    skills: [],
+    password: "",
   });
 
-  // Handle input change
+  // State for error messages
+  const [error, setError] = useState("");
+
+  // Pre-fill basic user details from Auth0
+  useEffect(() => {
+    if (user) {
+      setFormData({
+        ...formData,
+        first_name: user.given_name || "",
+        last_name: user.family_name || "",
+        email: user.email || "",
+      });
+    }
+  }, [user]);
+
+  // Handle form input changes
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
   };
 
-  // Handle form submit
+  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
-      // Send data to the backend to create the user profile
-      const response = await axios.post("http://localhost:5000/api/neighbors", formData);
-      
-      if (response.status === 200) {
-        // Redirect to the feed page after successful registration
+      const response = await axios.post(
+        "https://backendservices-hsz0.onrender.com/register",
+        formData
+      );
+      if (response.status === 201) {
+        // Redirect to /feed after successful registration
         navigate("/feed");
       }
-    } catch (error) {
-      console.error("Error registering user:", error);
-      // Handle error
+    } catch (err) {
+      console.error("Error registering user:", err);
+      setError("Failed to register. Please try again.");
     }
   };
 
-  return (
-    <div className="register-page">
-      <h2>Register Your Profile</h2>
-      
-        <div className="form-group">
-          <label htmlFor="username">Username</label>
-          <input
-            type="text"
-            id="username"
-            name="username"
-            value={formData.username}
-            onChange={handleChange}
-            required
-          />
-        </div>
+  if (isLoading) return <div>Loading...</div>;
 
+  return (
+    <div className="register-container">
+      <h1>Complete Your Registration</h1>
+      {error && <p className="error">{error}</p>}
       <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label htmlFor="first_name">First Name</label>
+        <label>
+          First Name:
           <input
             type="text"
-            id="first_name"
             name="first_name"
             value={formData.first_name}
             onChange={handleChange}
-            required
+            readOnly
           />
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="last_name">Last Name</label>
+        </label>
+        <label>
+          Last Name:
           <input
             type="text"
-            id="last_name"
             name="last_name"
             value={formData.last_name}
             onChange={handleChange}
-            required
+            readOnly
           />
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="phone">Phone</label>
+        </label>
+        <label>
+          Email:
           <input
-            type="tel"
-            id="phone"
+            type="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            readOnly
+          />
+        </label>
+        <label>
+          Phone:
+          <input
+            type="text"
             name="phone"
             value={formData.phone}
             onChange={handleChange}
             required
           />
-        </div>
-
-
-        <div className="form-group">
-          <label htmlFor="zipcode">Zipcode</label>
+        </label>
+        <label>
+          Zipcode:
           <input
             type="text"
-            id="zipcode"
             name="zipcode"
             value={formData.zipcode}
             onChange={handleChange}
             required
           />
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="profile_pic">Profile Picture URL (optional)</label>
-          <input
-            type="text"
-            id="profile_pic"
-            name="profile_pic"
-            value={formData.profile_pic}
-            onChange={handleChange}
-          />
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="password">Password</label>
+        </label>
+        <label>
+          Password:
           <input
             type="password"
-            id="password"
             name="password"
             value={formData.password}
             onChange={handleChange}
             required
           />
-        </div>
-
-        <div className="form-group">
-          <button type="submit">Register</button>
-        </div>
+        </label>
+        <button type="submit">Register</button>
       </form>
     </div>
   );

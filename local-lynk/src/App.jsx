@@ -6,6 +6,7 @@ import UsersProfile from "./components/Pages/UserProfile";
 import PrivateRoute from "./components/auth0/PrivateRoute";
 import NavbarComponent from "./components/Features/NavBar";
 import { useAuth0 } from "@auth0/auth0-react";
+import RegisterPage from "./components/Pages/RegisterPage";
 
 function App() {
   const { isAuthenticated } = useAuth0();
@@ -22,6 +23,7 @@ function App() {
         {/* Private Routes */}
         <Route element={<PrivateRoute />}>
           <Route path="/feed" element={<FeedPage />} />
+          <Route path="/register" element={<RegisterPage />} />
           <Route path="/user/:id" element={<UsersProfile />} />
         </Route>
       </Routes>
