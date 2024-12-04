@@ -2,33 +2,43 @@ import { useState, useEffect } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import Select from "react-select";
+import makeAnimated from "react-select/animated";
+import "../css/register.css";
 
 const RegisterPage = () => {
   const { user, isLoading } = useAuth0();
   const navigate = useNavigate();
+  const animatedComponents = makeAnimated();
 
   // State for form inputs
   const [formData, setFormData] = useState({
-    first_name: "",
-    last_name: "",
-    email: "",
+    username: "",
     phone: "",
     zipcode: "",
-    password: "",
+    skills: [],
+    otherSkill: "",
   });
+
+  const skillOptions = [
+    { value: "Web Development", label: "Web Development" },
+    { value: "Data Science", label: "Data Science" },
+    { value: "Graphic Design", label: "Graphic Design" },
+    { value: "Marketing", label: "Marketing" },
+    { value: "Project Management", label: "Project Management" },
+    { value: "Other", label: "Other" },
+  ];
 
   // State for error messages
   const [error, setError] = useState("");
 
-  // Pre-fill basic user details from Auth0
+  // Pre-fill username from Auth0 if available
   useEffect(() => {
     if (user) {
-      setFormData({
-        ...formData,
-        first_name: user.given_name || "",
-        last_name: user.family_name || "",
-        email: user.email || "",
-      });
+      setFormData((prevData) => ({
+        ...prevData,
+        username: user.nickname || "",
+      }));
     }
   }, [user]);
 
@@ -40,16 +50,35 @@ const RegisterPage = () => {
     });
   };
 
+  // Handle skill selection
+  const handleSkillChange = (selectedOptions) => {
+    const selectedSkills = selectedOptions.map((option) => option.value);
+    setFormData({
+      ...formData,
+      skills: selectedSkills,
+    });
+  };
+
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Check for "Other" skill with missing input
+    if (formData.skills.includes("Other") && !formData.otherSkill.trim()) {
+      setError("Please specify your other skill.");
+      return;
+    }
+
+    // Combine "Other" skill if filled
+    const allSkills = formData.skills.includes("Other")
+      ? [...formData.skills.filter((skill) => skill !== "Other"), formData.otherSkill.trim()]
+      : formData.skills;
+
+    const payload = { ...formData, skills: allSkills };
+
     try {
-      const response = await axios.post(
-        "https://backendservices-hsz0.onrender.com/register",
-        formData
-      );
+      const response = await axios.post("https://backendservices-hsz0.onrender.com/register", payload);
       if (response.status === 201) {
-        // Redirect to /feed after successful registration
         navigate("/feed");
       }
     } catch (err) {
@@ -62,37 +91,20 @@ const RegisterPage = () => {
 
   return (
     <div className="register-container">
-      <h1>Complete Your Registration</h1>
+      <h1>Hey Neighbor!</h1>
+      <h2>You&apos;re almost ready to meet your community</h2>
+      <p>Please Complete This form</p>
       {error && <p className="error">{error}</p>}
       <form onSubmit={handleSubmit}>
         <label>
-          First Name:
+          Username:
           <input
             type="text"
-            name="first_name"
-            value={formData.first_name}
+            name="username"
+            value={formData.username}
             onChange={handleChange}
-            readOnly
-          />
-        </label>
-        <label>
-          Last Name:
-          <input
-            type="text"
-            name="last_name"
-            value={formData.last_name}
-            onChange={handleChange}
-            readOnly
-          />
-        </label>
-        <label>
-          Email:
-          <input
-            type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            readOnly
+            required
+            maxLength={20} // Character limit for username
           />
         </label>
         <label>
@@ -103,6 +115,7 @@ const RegisterPage = () => {
             value={formData.phone}
             onChange={handleChange}
             required
+            maxLength={15} // Character limit for phone
           />
         </label>
         <label>
@@ -113,19 +126,31 @@ const RegisterPage = () => {
             value={formData.zipcode}
             onChange={handleChange}
             required
+            maxLength={10} // Character limit for zipcode
           />
         </label>
         <label>
-          Password:
-          <input
-            type="password"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-            required
+          Skills:
+          <Select
+            components={animatedComponents}
+            isMulti
+            options={skillOptions}
+            onChange={handleSkillChange}
           />
         </label>
-        <button type="submit">Register</button>
+        {formData.skills.includes("Other") && (
+          <label>
+            Specify Other Skill:
+            <input
+              type="text"
+              name="otherSkill"
+              value={formData.otherSkill}
+              onChange={handleChange}
+              required
+            />
+          </label>
+        )}
+        <button type="submit">Complete Registration</button>
       </form>
     </div>
   );
