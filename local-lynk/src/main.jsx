@@ -11,9 +11,6 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   <Auth0Provider
     domain={domain}
     clientId={clientId}
-    authorizationParams={{
-      redirect_uri: `${window.location.origin}/feed`, // Redirect to /feed after login
-    }}
   >
     <BrowserRouter>
       <App />
