@@ -19,7 +19,7 @@ function App() {
       <Routes>
         {/* Public Routes */}
         <Route path="/" element={<HomePage />} />
-        <Route path="/register" element={<RegisterPage />} /> {/* This should be outside of PrivateRoute */}
+        <Route path="/register" element={<RegisterPage />} />
 
         {/* Private Routes */}
         <Route element={<PrivateRoute />}>

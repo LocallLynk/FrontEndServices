@@ -11,7 +11,10 @@ const AuthButton = () => {
     };
 
     const handleLogin = () => {
-        loginWithRedirect(); // No need for redirect_uri since the action handles it
+        // Explicitly set the redirect URI for the login
+        loginWithRedirect({
+            redirect_uri: `${window.location.origin}/feed`, // Specify the desired redirect URI
+        });
     };
 
     return isAuthenticated ? (
