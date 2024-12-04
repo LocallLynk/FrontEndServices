@@ -19,11 +19,11 @@ function App() {
       <Routes>
         {/* Public Routes */}
         <Route path="/" element={<HomePage />} />
+        <Route path="/register" element={<RegisterPage />} /> {/* This should be outside of PrivateRoute */}
 
         {/* Private Routes */}
         <Route element={<PrivateRoute />}>
           <Route path="/feed" element={<FeedPage />} />
-          <Route path="/register" element={<RegisterPage />} />
           <Route path="/user/:id" element={<UsersProfile />} />
         </Route>
       </Routes>
