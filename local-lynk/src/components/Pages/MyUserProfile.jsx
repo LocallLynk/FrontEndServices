@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 import { Button, Card, Form, FormControl } from "react-bootstrap";
 import Ratings from "../Features/StaticRatings";
 
-function AuthorizedUser() {
+function MyUserProfile() {
     const { userId } = useParams();
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -204,4 +204,4 @@ function AuthorizedUser() {
     );
 }
 
-export default AuthorizedUser;
+export default MyUserProfile;

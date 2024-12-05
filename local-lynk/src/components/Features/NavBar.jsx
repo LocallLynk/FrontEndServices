@@ -18,7 +18,7 @@ const NavbarComponent = () => {
             {isAuthenticated && (
               <>
                 <Nav.Link as={Link} to="/feed">Community Posts</Nav.Link>
-                <Nav.Link as={Link} to={`/user/${user?.sub}`}>Profile</Nav.Link>
+                <Nav.Link as={Link} to={`/myprofile`}>My Profile</Nav.Link>
                 <Nav.Link onClick={() => logout({ returnTo: window.location.origin })}>Log Out</Nav.Link>
               </>
             )}
