@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import { Card, Form, Button } from 'react-bootstrap';
+import "../css/register.css"
 
 function NewPost({ onAddPost }) {
     const [title, setTitle] = useState("");
@@ -31,9 +32,9 @@ function NewPost({ onAddPost }) {
     return (
             <div className="align-items-center justify-content-center d-flex">
             <Form className='w-50 p-3 bg-white shadow rounded' onSubmit={handleSubmit}>
-            <h4>Create A Post</h4>
+            <h4 style={{ color: "#016b66" }} >What's happening neighbor?</h4>
                 <Form.Group controlId='postTitle'>
-                    <Form.Label>Title</Form.Label>
+                    
                     <Form.Control
                     type='text'
                     placeholder='Enter title'
@@ -41,12 +42,11 @@ function NewPost({ onAddPost }) {
                     onChange={(e) => setTitle(e.target.value)}
                     />
                 </Form.Group>
-
+                
                 <Form.Group controlId='postBody'>
-                    <Form.Label>Body</Form.Label>
+                   
                     <Form.Control
                     as="textarea"
-                    rows={2}
                     placeholder='Enter body'
                     value={body}
                     onChange={(e) => setBody(e.target.value)}

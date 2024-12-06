@@ -61,8 +61,8 @@ function FeedPage() {
   }
 
   return (
-    <div style={{ backgroundColor: '#eaf5f4', minHeight: '100vh', padding: '20px', marginTop: '4px' }}>
-      <h1 className="text-center">Community Posts</h1>
+    <div style={{ backgroundColor: '#eaf5f4' }}>
+      <h1 className="text-center">Your Neighborhood</h1>
 
       <NewPost onAddPost={handleAddPost} />
 
