@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { Button, Card } from "react-bootstrap";
 
 function UsersProfile() {
@@ -82,14 +82,20 @@ function UsersProfile() {
                         {posts.length > 0 ? (
                             <ul>
                                 {posts.map(post => (
-                                    <li key={post.id} style={{ listStyleType: "circle", color: "darkslategray", textDecoration: "underline"}}>
+                                    
+                                    <li key={post.id}>
+                                        <Link to={`/post/${post.id}`} style={{ listStyleType: "circle", color: "darkslategray", textDecoration: "underline"}}>
                                         {post.title}
+                                        </Link>
                                     </li>
+                                    
                                 ))}
                             </ul>
+                            
                         ) : (
                         <li>No posts available yet.</li>
                         )}
+                      
 
                         <Button onClick={handleMessage} style={{ backgroundColor: '#016b66', width: '100%', marginTop: '8px' }}>
                             Message
