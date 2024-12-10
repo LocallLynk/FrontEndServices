@@ -1,0 +1,13 @@
+.custom-navbar {
+    background-color: #6572A5;
+    border-bottom: 2px solid #5D395F;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.nav-link {
+    color: white !important;
+}
+
+.nav-link:hover {
+    color: #7ED2D2 !important;
+}

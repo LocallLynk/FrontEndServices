@@ -1,6 +1,6 @@
-import { useAuth0 } from '@auth0/auth0-react';
-import { Button } from 'react-bootstrap';
-import axios from 'axios';
+import { useAuth0 } from "@auth0/auth0-react";
+import { Button } from "react-bootstrap";
+import { useEffect } from "react";
 
 const AuthButton = () => {
     const { loginWithRedirect, logout, isAuthenticated, user, isLoading } = useAuth0();
@@ -16,32 +16,48 @@ const AuthButton = () => {
         await loginWithRedirect();
     };
 
-    const checkUserEmail = async () => {
-        if (isLoading || !user) return; // Wait until Auth0 is done loading the user
-
-        const userEmail = user.email; // Retrieve email from Auth0 user object
-        const backendEndpoint = "https://my-backend.com/neighbor/get/email"; // Update with your backend URL
-
+    const checkUserData = async (email) => {
+        const backendEndpoint = "https://backendservices-hsz0.onrender.com/neighbor/get/email"; // Backend URL for email check
+    
         try {
-            const response = await axios.get(`${backendEndpoint}/${userEmail}`);
-            if (response.status === 200) {
-                // User exists, redirect to feed
+            console.log("Checking user data for email:", email); // Debug log
+    
+            const response = await fetch(`${backendEndpoint}/${email}`);
+            
+            if (response.ok) {
+                // Status 200: User exists
+                const data = await response.json(); // Parse JSON response if needed
+                console.log("User exists, response data:", data); // Debug log
+                console.log("User exists, redirecting to feed...");
                 window.location.href = `${window.location.origin}/feed`;
-            }
-        } catch (error) {
-            if (error.response && error.response.status === 404) {
-                // User does not exist, redirect to register
+            } else if (response.status === 404) {
+                // Status 404: User does not exist
+                console.log("User not found, redirecting to register...");
                 window.location.href = `${window.location.origin}/register`;
             } else {
-                console.error("Error verifying user:", error.message);
+                // Handle other unexpected status codes
+                console.error("Unexpected response status:", response.status);
+                alert("An unexpected error occurred. Please try again.");
             }
+        } catch (error) {
+            // Handle network or unexpected errors
+            console.error("Network error verifying user:", error);
+            alert("Unable to connect to the server. Please check your network and try again.");
         }
     };
+    
 
-    // Run email check only if authenticated
-    if (isAuthenticated) {
-        checkUserEmail();
-    }
+    // Use useEffect to handle the email check after login is complete
+    useEffect(() => {
+        console.log("Auth0 State - isAuthenticated:", isAuthenticated);
+        console.log("Auth0 State - user:", user);
+        console.log("Auth0 State - isLoading:", isLoading);
+
+        if (isAuthenticated && user?.email && !isLoading) {
+            console.log("User is authenticated, checking user data...");
+            checkUserData(user.email);
+        }
+    }, [isAuthenticated, isLoading, user]);
 
     return isAuthenticated ? (
         <Button onClick={handleLogout} className="auth-btn">
@@ -55,3 +71,4 @@ const AuthButton = () => {
 };
 
 export default AuthButton;
+
