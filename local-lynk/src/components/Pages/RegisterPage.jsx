@@ -74,12 +74,18 @@ const RegisterPage = () => {
       ? [...formData.skills.filter((skill) => skill !== "Other"), formData.otherSkill.trim()]
       : formData.skills;
 
-    const payload = { ...formData, skills: allSkills };
+    const payload = {
+      ...formData,
+      skills: allSkills,
+      auth0UserId: user?.sub, // Include Auth0 user ID
+      email: user?.email, // Include Auth0 email
+    };
 
     try {
       const response = await axios.post("https://backendservices-hsz0.onrender.com/register", payload);
       if (response.status === 201) {
-        navigate("/feed");
+        console.log("User successfully registered:", response.data); // Log successful registration
+        navigate("/feed"); // Redirect to the feed page
       }
     } catch (err) {
       console.error("Error registering user:", err);
@@ -157,3 +163,4 @@ const RegisterPage = () => {
 };
 
 export default RegisterPage;
+

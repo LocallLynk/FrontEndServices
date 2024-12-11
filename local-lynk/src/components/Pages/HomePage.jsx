@@ -24,11 +24,12 @@ const HomePage = () => {
           <h1>What&apos;s Local?</h1>
           <p>Find out today.</p>
 
-          {!isAuthenticated ? (
+          {/* Show the AuthButton only when the user is not authenticated */}
+          {!isAuthenticated && (
             <div className="auth-btn-container">
               <AuthButton className="auth-btn" /> {/* Login Button */}
             </div>
-          ) : null}
+          )}
         </div>
       </div>
     </div>
@@ -36,3 +37,4 @@ const HomePage = () => {
 };
 
 export default HomePage;
+
