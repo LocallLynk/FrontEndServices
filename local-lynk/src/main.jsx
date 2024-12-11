@@ -3,7 +3,7 @@ import App from "./App.jsx";
 import { BrowserRouter } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Auth0Provider } from '@auth0/auth0-react';
-import AuthButton from "./components/auth0/AuthButton.jsx";  // Import AuthButton
+import AuthButton from "./components/auth0/AuthButton.jsx";
 
 const domain = import.meta.env.VITE_AUTH0_DOMAIN;
 const clientId = import.meta.env.VITE_AUTH0_CLIENT_ID;
