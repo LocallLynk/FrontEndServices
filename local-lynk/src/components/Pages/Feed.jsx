@@ -129,7 +129,7 @@ function FeedPage() {
                     <Form.Group controlId="commentInput" className="mt-3">
                       <Form.Control
                         type="text"
-                        placeholder="Add a comment"
+                        placeholder="Comment"
                         name="commentInput"
                       />
                     </Form.Group>
