@@ -22,8 +22,6 @@ ReactDOM.createRoot(document.getElementById('root')).render(
      }}
   >
     <BrowserRouter>
-      {/* Only show AuthButton on the homepage */}
-      {window.location.pathname === "/" && <AuthButton />}
       <App />
     </BrowserRouter>
   </Auth0Provider>

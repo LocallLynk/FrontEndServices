@@ -44,3 +44,6 @@ const ChangeProfilePicture = ({ onProfileChange }) => {
 };
 
 export default ChangeProfilePicture;
+
+
+// Developed by Megan Armas

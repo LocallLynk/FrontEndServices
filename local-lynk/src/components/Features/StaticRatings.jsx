@@ -18,3 +18,5 @@ export default function Ratings() {
         </Box>
     );
 }
+
+// Developed by Megan Armas

@@ -152,3 +152,5 @@ function FeedPage() {
 }
 
 export default FeedPage;
+
+// Developed by Megan Armas

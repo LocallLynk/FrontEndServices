@@ -205,3 +205,5 @@ function MyUserProfile() {
 }
 
 export default MyUserProfile;
+
+// Developed by Megan Armas

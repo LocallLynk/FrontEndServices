@@ -61,3 +61,5 @@ function NewPost({ onAddPost }) {
 }
 
 export default NewPost;
+
+// Developed by Megan Armas
